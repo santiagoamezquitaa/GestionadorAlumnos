@@ -1,0 +1,93 @@
+<div class="container mt-5">
+  <h1 class="text-center" appTitlesSize>
+    FORMULARIO DE REGISTRO PARA ESTUDIANTES
+  </h1>
+  <form class="row g-3 mt-5" [formGroup]="formStudents" (submit)="submitData()">
+    <div class="col-md-4">
+      <label class="form-label">Número de identificación:</label>
+      <input type="text" class="form-control" formControlName="id"
+        [ngClass]="formStudents.get('id')?.invalid && formStudents.get('id')?.dirty ? 'error': 'success'">
+      <span *ngIf="formStudents.get('id')?.invalid && formStudents.get('id')?.dirty">
+        Por favor, ingrese un número de identificación válido.</span>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Nombres:</label>
+      <input type="text" class="form-control" formControlName="name"
+        [ngClass]="formStudents.get('name')?.invalid && formStudents.get('name')?.dirty ? 'error': 'success'">
+      <span *ngIf="formStudents.get('name')?.invalid && formStudents.get('name')?.dirty">
+        Por favor, ingrese un nombre válido.</span>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Apellidos:</label>
+      <input type="text" class="form-control" formControlName="lastName"
+        [ngClass]="formStudents.get('lastName')?.invalid && formStudents.get('lastName')?.dirty ? 'error': 'success'">
+      <span *ngIf="formStudents.get('lastName')?.invalid && formStudents.get('lastName')?.dirty">
+        Por favor, ingrese apellidos válidos.</span>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Fecha de nacimiento:</label>
+      <input type="date" class="form-control" formControlName="birthday"
+        [ngClass]="formStudents.get('birthday')?.invalid && formStudents.get('birthday')?.dirty ? 'error': 'success'">
+      <span *ngIf="formStudents.get('birthday')?.invalid && formStudents.get('birthday')?.dirty">
+        Por favor, ingrese una fecha de nacimiento válida.</span>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Dirección:</label>
+      <input type="text" class="form-control" formControlName="address"
+        [ngClass]="formStudents.get('address')?.invalid && formStudents.get('address')?.dirty ? 'error': 'success'">
+      <span *ngIf="formStudents.get('address')?.invalid && formStudents.get('address')?.dirty">
+        Por favor, ingrese una dirección válida.</span>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Grado educativo:</label>
+      <select class="form-control" formControlName="educationLevel"
+        [ngClass]="formStudents.get('educationLevel')?.invalid && formStudents.get('educationLevel')?.dirty ? 'error': 'success'">
+        <option></option>
+        <option>Preescolar</option>
+        <option>Primaria</option>
+        <option>Secundaria</option>
+      </select>
+      <span *ngIf="formStudents.get('educationLevel')?.invalid && formStudents.get('educationLevel')?.dirty">
+        Por favor, seleccione un nivel educativo válido.</span>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label">Género:</label>
+      <select class="form-control" formControlName="gender"
+        [ngClass]="formStudents.get('gender')?.invalid && formStudents.get('gender')?.dirty ? 'error': 'success'">
+        <option></option>
+        <option value="M">Masculino</option>
+        <option value="F">Femenino</option>
+      </select>
+      <span *ngIf="formStudents.get('gender')?.invalid && formStudents.get('gender')?.dirty">
+        Por favor, seleccione un nivel educativo válido.</span>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Correo electrónico:</label>
+      <input type="text" class="form-control" formControlName="email"
+        [ngClass]="formStudents.get('email')?.invalid && formStudents.get('email')?.dirty ? 'error': 'success'">
+      <span *ngIf="formStudents.get('email')?.invalid && formStudents.get('email')?.dirty">
+        Por favor, ingrese un correo electrónico válido.</span>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Número celular:</label>
+      <input type="text" class="form-control" formControlName="phoneNumber"
+        [ngClass]="formStudents.get('phoneNumber')?.invalid && formStudents.get('phoneNumber')?.dirty ? 'error': 'success'">
+      <span *ngIf="formStudents.get('phoneNumber')?.invalid && formStudents.get('phoneNumber')?.dirty">
+        Por favor, ingrese un número de celular válido.</span>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Estatus:</label>
+      <select class="form-control" formControlName="isActive"
+        [ngClass]="formStudents.get('isActive')?.invalid && formStudents.get('isActive')?.dirty ? 'error': 'success'">
+        <option></option>
+        <option value="true">Activo</option>
+        <option value="false">Inactivo</option>
+      </select>
+      <span *ngIf="formStudents.get('isActive')?.invalid && formStudents.get('isActive')?.dirty">
+        Por favor, seleccione un nivel educativo válido.</span>
+    </div>
+    <div class="col-12 text-center mb-5">
+      <button type="submit" class="btn" [ngClass]="formStudents.invalid ? 'btn-secondary' : 'btn-success'">Guardar</button>
+    </div>
+  </form>
+</div>
