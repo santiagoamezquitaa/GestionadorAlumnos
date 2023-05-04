@@ -16,6 +16,28 @@ export class StudentListComponent implements OnInit {
   constructor(private studentService: StudentService, private sharedService: SharedService) { }
 
   ngOnInit(): void {
+  this.studentService.getUsers().subscribe((valor) => {console.log(valor)});
+  this.studentService.postData(
+    {
+      name: "Chandler",
+      lastName: "Runte",
+      birthday: "1955-05-04T11:30:18.451Z",
+      address: "944",
+      educationLevel: 'Preescolar',
+      gender: "M",
+      email: "Hillary_Runolfsson85@hotmail.com",
+      phoneNumber: 3572730390,
+      isActive: false,
+      id: "18"
+     }
+  ).subscribe(
+    Response => {
+      console.log(Response);
+    },
+    Error => {
+      console.error(Error);
+    }
+  )
   }
 
   renderDataTable(element: any) {

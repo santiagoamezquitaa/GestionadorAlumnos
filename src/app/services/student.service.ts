@@ -2,13 +2,24 @@ import { Injectable } from '@angular/core';
 import { dataStudents } from '../components/data/data-students';
 
 import swal from'sweetalert2';
+import { Students } from '../interfaces/interfaces';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+
+  getUsers (): Observable<Object> {
+    return this.httpClient.get('https://644bbe4817e2663b9df71eff.mockapi.io/api/v1/students');
+  }
+
+  postData(data: object): Observable<Object> {
+    return this.httpClient.post('https://644bbe4817e2663b9df71eff.mockapi.io/api/v1/students', data);
+  }
 
   createData(element: any){
     dataStudents.push(element);

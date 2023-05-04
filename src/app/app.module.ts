@@ -16,6 +16,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedService } from './services/shared.service';
 import { TitlesSizeDirective } from './directives/titles-size.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TitlesSizeDirective } from './directives/titles-size.directive';
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [SharedService],
   bootstrap: [AppComponent]
