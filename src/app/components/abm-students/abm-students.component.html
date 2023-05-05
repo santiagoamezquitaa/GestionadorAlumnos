@@ -2,8 +2,9 @@
   <h1 class="text-center" appTitlesSize>
     FORMULARIO DE REGISTRO PARA ESTUDIANTES
   </h1>
-  <form class="row g-3 mt-5" [formGroup]="formStudents" (submit)="submitData()">
-    <div class="col-md-4">
+  <form class="row g-3 mt-5" [formGroup]="formStudents" (submit)="inscriptioMode ? edit() : inscribe()">
+
+    <div class="col-md-4" *ngIf="inscriptioMode">
       <label class="form-label">Número de identificación:</label>
       <input type="text" class="form-control" formControlName="id"
         [ngClass]="formStudents.get('id')?.invalid && formStudents.get('id')?.dirty ? 'error': 'success'">
@@ -68,14 +69,14 @@
       <span *ngIf="formStudents.get('email')?.invalid && formStudents.get('email')?.dirty">
         Por favor, ingrese un correo electrónico válido.</span>
     </div>
-    <div class="col-md-4">
+    <div [ngClass]="inscriptioMode ? 'col-md-4' : 'col-md-6'">
       <label class="form-label">Número celular:</label>
       <input type="text" class="form-control" formControlName="phoneNumber"
         [ngClass]="formStudents.get('phoneNumber')?.invalid && formStudents.get('phoneNumber')?.dirty ? 'error': 'success'">
       <span *ngIf="formStudents.get('phoneNumber')?.invalid && formStudents.get('phoneNumber')?.dirty">
         Por favor, ingrese un número de celular válido.</span>
     </div>
-    <div class="col-md-4">
+    <div [ngClass]="inscriptioMode ? 'col-md-4' : 'col-md-6'">
       <label class="form-label">Estatus:</label>
       <select class="form-control" formControlName="isActive"
         [ngClass]="formStudents.get('isActive')?.invalid && formStudents.get('isActive')?.dirty ? 'error': 'success'">
@@ -86,8 +87,21 @@
       <span *ngIf="formStudents.get('isActive')?.invalid && formStudents.get('isActive')?.dirty">
         Por favor, seleccione un nivel educativo válido.</span>
     </div>
+    <div *ngIf="!inscriptioMode">
+      <div class="col-12 text-center">
+        <button type="submit" class="btn"
+          [ngClass]="formStudents.invalid ? 'btn-secondary' : 'btn-success'">Inscribir</button>
+      </div>
+    </div>
+    <div *ngIf="inscriptioMode">
+      <div class="col-12 text-center">
+        <button type="submit" class="btn" [ngClass]="formStudents.invalid ? 'btn-secondary' : 'btn-primary'">Guardar
+          Cambios</button>
+      </div>
+    </div>
+
     <div class="col-12 text-center mb-5">
-      <button type="submit" class="btn" [ngClass]="formStudents.invalid ? 'btn-secondary' : 'btn-success'">Guardar</button>
+      <button type="submit" class="btn btn-danger" (click)="onClear()">Limpiar campos</button>
     </div>
   </form>
 </div>

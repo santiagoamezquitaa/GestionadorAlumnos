@@ -1,52 +1,89 @@
-import { Component, OnInit } from '@angular/core';
-import { dataStudents } from '../data/data-students';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/services/student.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { Subscription } from 'rxjs';
+import { Student } from 'src/app/interfaces/interfaces';
+
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
-  styleUrls: ['./student-list.component.css']
+  styleUrls: ['./student-list.component.css'],
 })
-export class StudentListComponent implements OnInit {
+export class StudentListComponent implements OnInit, OnDestroy {
+  public displayedColumns: string[] = [
+    'id',
+    'fullName',
+    'birthday',
+    'address',
+    'educationLevel',
+    'gender',
+    'email',
+    'phone',
+    'status',
+    'functions',
+  ];
 
-  displayedColumns: string[] = ['id', 'fullName', 'birthday', 'address', 'educationLevel', 'gender', 'email', 'phone', 'status', 'functions'];
-  dataSource = dataStudents;
+  public dataSource: any;
+  public subscription: Subscription;
 
-  constructor(private studentService: StudentService, private sharedService: SharedService) { }
+  constructor(
+    private studentService: StudentService,
+    private sharedService: SharedService
+  ) {}
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
-  this.studentService.getUsers().subscribe((valor) => {console.log(valor)});
-  this.studentService.postData(
-    {
-      name: "Chandler",
-      lastName: "Runte",
-      birthday: "1955-05-04T11:30:18.451Z",
-      address: "944",
-      educationLevel: 'Preescolar',
-      gender: "M",
-      email: "Hillary_Runolfsson85@hotmail.com",
-      phoneNumber: 3572730390,
-      isActive: false,
-      id: "18"
-     }
-  ).subscribe(
-    Response => {
-      console.log(Response);
-    },
-    Error => {
-      console.error(Error);
-    }
-  )
+    this.subscription = this.studentService.getUsers().subscribe(
+      (data) => {
+        this.dataSource = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
-  renderDataTable(element: any) {
-    this.dataSource = this.studentService.deleteData(element);
+  delete(idEliminate: string) {
+    this.studentService.deleteData(idEliminate).subscribe(
+      (response) => {
+        console.log('Usuario eliminado');
+        this.dataSource = this.dataSource.filter(
+          (student: Student) => student.id !== idEliminate
+        );
+        swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Estudiante eliminado! :)',
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      },
+      (error) => {
+        console.error(error);
+        swal.fire({
+          title: 'Error',
+          text: 'No fue posible borrar el registro, intentalo mas tarde :(',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+        });
+      }
+    );
   }
 
-  sendDataUser(element:any){
-    const index = dataStudents.findIndex(student => student.id === element);
-    this.sharedService.setMessage(dataStudents[index]);
+  sendDataUser(element: any) {
+    this.sharedService.inscriptionMode(true);
+    const index = this.dataSource.findIndex(
+      (student: Student) => student.id === element
+    );
+    this.sharedService.setMessage(this.dataSource[index]);
   }
 
+  changeFormStatus() {
+    this.sharedService.inscriptionMode(false);
+  }
 }

@@ -1,10 +1,9 @@
 <h1 class="text-center mb-5 mt-3 fs-1" appTitlesSize>LISTA DE ESTUDIANTES</h1>
 
 <div class="right mb-3">
-    <button mat-fab color="primary" aria-label="Example icon button with a bookmark icon" routerLink="/inscription">
-        <mat-icon
-            fontIcon="person_add"
-        ></mat-icon>
+    <button mat-fab color="primary" aria-label="Example icon button with a bookmark icon" routerLink="/inscription"
+        (click)="changeFormStatus()">
+        <mat-icon fontIcon="person_add"></mat-icon>
     </button>
 </div>
 
@@ -52,7 +51,8 @@
 
     <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let element" [ngClass]="element.isActive ? 'active' : 'inactive'" class="text-center">
+        <td mat-cell *matCellDef="let element" [ngClass]="element.isActive === 'true' ? 'active' : 'inactive'"
+            class="text-center">
             {{element.isActive | maakeStatus}} </td>
     </ng-container>
 
@@ -62,7 +62,7 @@
             <button mat-icon-button color="basic" (click)="sendDataUser(element.id)" routerLink="/inscription">
                 <mat-icon fontIcon="edit"></mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="renderDataTable(element.id)">
+            <button mat-icon-button color="warn" (click)="delete(element.id)">
                 <mat-icon fontIcon="delete_forever"></mat-icon>
             </button>
         </td>

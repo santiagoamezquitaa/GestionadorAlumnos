@@ -1,12 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'maakeStatus'
+  name: 'maakeStatus',
 })
 export class MaakeStatusPipe implements PipeTransform {
-
-  transform(value: boolean): unknown {
-    return value ? 'Activo': 'Inactivo';
+  transform(value: string): unknown {
+    return value === 'true' ? 'Activo' : 'Inactivo';
   }
-
 }
