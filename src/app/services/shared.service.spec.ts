@@ -1,16 +1,31 @@
 import { TestBed } from '@angular/core/testing';
-
 import { SharedService } from './shared.service';
 
-describe('SharedService', () => {
-  let service: SharedService;
+fdescribe('SharedService', () => {
+  let sharedService: SharedService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SharedService);
+    TestBed.configureTestingModule({
+      providers: [SharedService],
+    });
+
+    sharedService = TestBed.inject(SharedService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('Debería poner y obtener el mensaje', () => {
+    const message = 'Hello, world!';
+
+    sharedService.setMessage(message);
+    expect(sharedService.getMessage()).toEqual(message);
+  });
+
+  it('Deberia de cambiar el estado de inscripción', () => {
+    expect(sharedService.inscriptionStatus).toBeFalsy();
+
+    sharedService.inscriptionMode(true);
+    expect(sharedService.inscriptionStatus).toBeTruthy();
+
+    sharedService.inscriptionMode(false);
+    expect(sharedService.inscriptionStatus).toBeFalsy();
   });
 });

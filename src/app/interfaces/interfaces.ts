@@ -13,3 +13,11 @@ export interface Student {
 
 export interface Students extends Array<Student>{}
 
+export interface User {
+    email: string,
+    password: string,
+    id: string,
+}
+
+export interface Users extends Array<User>{}
+
