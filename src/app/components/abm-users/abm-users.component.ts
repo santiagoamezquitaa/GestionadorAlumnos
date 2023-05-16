@@ -1,38 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SharedService } from 'src/app/services/shared.service';
-import { StudentService } from '../../services/student.service';
 import { NavigationEnd, Router } from '@angular/router';
-
+import { ONLY_APAHABETS_NO_SPECIAL_CHARACTERS, ONLY_NUMBERS } from 'src/app/constant/constants';
+import { SharedService } from 'src/app/services/shared.service';
+import { UserService } from 'src/app/services/user.service';
 import swal from 'sweetalert2';
-import { ONLY_APAHABETS_NO_SPECIAL_CHARACTERS, ONLY_NUMBERS, basesDeDatos, desarrolloSoftware, redes } from 'src/app/constant/constants';
-import { desarrolloWeb, infraestructura } from '../../constant/constants';
-import { CourseData } from 'src/app/interfaces/interfaces';
 
 @Component({
-  selector: 'app-abm-students',
-  templateUrl: './abm-students.component.html',
-  styleUrls: ['./abm-students.component.css'],
+  selector: 'app-abm-users',
+  templateUrl: './abm-users.component.html',
+  styleUrls: ['./abm-users.component.css']
 })
-export class AbmStudentsComponent implements OnInit {
-  public formStudents: FormGroup;
-  public inscriptioMode: boolean;
+export class AbmUsersComponent implements OnInit {
 
-  public devWeb: CourseData = desarrolloWeb;
-  public dataBase: CourseData = basesDeDatos;
-  public network: CourseData = redes;
-  public infraestructure: CourseData = infraestructura;
-  public devSoftware: CourseData = desarrolloSoftware;
+  public formUsers: FormGroup;
+  public inscriptioMode: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private sharedService: SharedService,
-    private studentService: StudentService,
+    private userService: UserService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.formStudents = this.formBuilder.group({
+    this.formUsers = this.formBuilder.group({
       id: [
         '',
         [
@@ -54,12 +46,11 @@ export class AbmStudentsComponent implements OnInit {
           Validators.pattern(ONLY_APAHABETS_NO_SPECIAL_CHARACTERS),
         ],
       ],
-      birthday: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      courses: [[], [Validators.required]],
-      gender: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: [
+      password: ['', [Validators.required]],     
+      profile: [[], [Validators.required]],
+      numberPhone: [
         '',
         [
           Validators.required,
@@ -67,7 +58,6 @@ export class AbmStudentsComponent implements OnInit {
           Validators.pattern(ONLY_NUMBERS),
         ],
       ],
-      isActive: ['', [Validators.required]],
     });
 
     if (this.sharedService.getMessage() !== '') {
@@ -78,23 +68,23 @@ export class AbmStudentsComponent implements OnInit {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.formStudents.markAllAsTouched();
-        this.formStudents.reset();
+        this.formUsers.markAllAsTouched();
+        this.formUsers.reset();
       }
     });
   }
 
   poblarDatos() {
-    this.formStudents.patchValue(this.sharedService.getMessage());
+    this.formUsers.patchValue(this.sharedService.getMessage());
   }
 
   inscribe(): void {
-    if (this.formStudents.valid) {
-      this.studentService.postData(this.formStudents.value).subscribe(
+    if (this.formUsers.valid) {
+      this.userService.postUsers(this.formUsers.value).subscribe(
         (response) => {
           swal.fire({
             title: 'ENVIADO',
-            text: 'Alumno registrado! :)',
+            text: 'Usuario registrado! :)',
             icon: 'success',
             confirmButtonColor: '#3085d6',
           });
@@ -114,14 +104,14 @@ export class AbmStudentsComponent implements OnInit {
   }
 
   edit(): void {
-    if (this.formStudents.valid) {
-      this.studentService
-        .putData(this.formStudents.value.id, this.formStudents.value)
+    if (this.formUsers.valid) {
+      this.userService
+        .putUsers(this.formUsers.value.id, this.formUsers.value)
         .subscribe(
           (response) => {
             swal.fire({
               title: 'CAMBIOS HECHOS',
-              text: 'Alumno actualizado! :)',
+              text: 'Usuario actualizado! :)',
               icon: 'success',
               confirmButtonColor: '#3085d6',
             });
@@ -142,6 +132,7 @@ export class AbmStudentsComponent implements OnInit {
 
   onClear() {
     this.sharedService.setMessage('');
-    this.formStudents.reset();
+    this.formUsers.reset();
   }
+
 }

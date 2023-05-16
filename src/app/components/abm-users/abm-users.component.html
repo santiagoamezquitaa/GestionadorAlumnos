@@ -1,0 +1,84 @@
+<div class="container mt-5">
+    <h1 class="text-center" appTitlesSize>
+      FORMULARIO DE REGISTRO DE USUARIOS
+    </h1>
+    <form class="row g-3 mt-5" [formGroup]="formUsers" (submit)="inscriptioMode ? edit() : inscribe()" id="my-form">
+  
+      <div class="col-md-4" *ngIf="inscriptioMode">
+        <label class="form-label">Número de identificación:</label>
+        <input type="text" class="form-control" formControlName="id"
+          [ngClass]="formUsers.get('id')?.invalid && formUsers.get('id')?.dirty ? 'error': 'success'">
+        <span *ngIf="formUsers.get('id')?.invalid && formUsers.get('id')?.dirty">
+          Por favor, ingrese un número de identificación válido.</span>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Nombres:</label>
+        <input type="text" class="form-control" formControlName="name"
+          [ngClass]="formUsers.get('name')?.invalid && formUsers.get('name')?.dirty ? 'error': 'success'">
+        <span *ngIf="formUsers.get('name')?.invalid && formUsers.get('name')?.dirty">
+          Por favor, ingrese un nombre válido.</span>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Apellidos:</label>
+        <input type="text" class="form-control" formControlName="lastName"
+          [ngClass]="formUsers.get('lastName')?.invalid && formUsers.get('lastName')?.dirty ? 'error': 'success'">
+        <span *ngIf="formUsers.get('lastName')?.invalid && formUsers.get('lastName')?.dirty">
+          Por favor, ingrese apellidos válidos.</span>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Dirección:</label>
+        <input type="text" class="form-control" formControlName="address"
+          [ngClass]="formUsers.get('address')?.invalid && formUsers.get('address')?.dirty ? 'error': 'success'">
+        <span *ngIf="formUsers.get('address')?.invalid && formUsers.get('address')?.dirty">
+          Por favor, ingrese una dirección válida.</span>
+      </div>
+      <div [ngClass]="inscriptioMode ? 'col-md-4' : 'col-md-6'">
+        <label class="form-label">Correo electrónico:</label>
+        <input type="text" class="form-control" formControlName="email"
+          [ngClass]="formUsers.get('email')?.invalid && formUsers.get('email')?.dirty ? 'error': 'success'">
+        <span *ngIf="formUsers.get('email')?.invalid && formUsers.get('email')?.dirty">
+          Por favor, ingrese un correo electrónico válido.</span>
+      </div>
+      <div [ngClass]="inscriptioMode ? 'col-md-4' : 'col-md-6'">
+        <label class="form-label">Contraseña:</label>
+        <input type="password" class="form-control" formControlName="password"
+          [ngClass]="formUsers.get('password')?.invalid && formUsers.get('password')?.dirty ? 'error': 'success'">
+        <span *ngIf="formUsers.get('password')?.invalid && formUsers.get('password')?.dirty">
+          Por favor, ingrese una contraseña válida.</span>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Perfil:</label>
+        <select class="form-control" formControlName="profile"
+          [ngClass]="formUsers.get('profile')?.invalid && formUsers.get('profile')?.dirty ? 'error': 'success'">
+          <option></option>
+          <option value="administrator">Administrador</option>
+          <option value="user">Usuario</option>
+        </select>
+        <span *ngIf="formUsers.get('profile')?.invalid && formUsers.get('profile')?.dirty">
+          Por favor, seleccione un perfil.</span>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Número celular:</label>
+        <input type="text" class="form-control" formControlName="numberPhone"
+          [ngClass]="formUsers.get('numberPhone')?.invalid && formUsers.get('numberPhone')?.dirty ? 'error': 'success'">
+        <span *ngIf="formUsers.get('numberPhone')?.invalid && formUsers.get('numberPhone')?.dirty">
+          Por favor, ingrese un número de celular válido.</span>
+      </div>
+      <div *ngIf="!inscriptioMode">
+        <div class="col-12 text-center">
+          <button type="submit" class="btn"
+            [ngClass]="formUsers.invalid ? 'btn-secondary' : 'btn-success'">Inscribir</button>
+        </div>
+      </div>
+      <div *ngIf="inscriptioMode">
+        <div class="col-12 text-center">
+          <button type="submit" class="btn" [ngClass]="formUsers.invalid ? 'btn-secondary' : 'btn-primary'">Guardar
+            Cambios</button>
+        </div>
+      </div>
+  
+      <div class="col-12 text-center mb-5">
+        <button type="submit" class="btn btn-danger" (click)="onClear()">Limpiar campos</button>
+      </div>
+    </form>
+  </div>

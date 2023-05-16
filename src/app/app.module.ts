@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './modules/core/core.module';
-import { AdminPageModule } from './components/admin-page/admin-page.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { AdminPageModule } from './components/admin-page/admin-page.module';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    AdminPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

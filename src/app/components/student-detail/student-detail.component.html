@@ -1,0 +1,86 @@
+<h1 class="text-center mb-5 mt-3" appTitlesSize> DETALLES DEL ALUMNO</h1>
+
+<div class="alert alert-info" role="alert">
+    <h2 class="alert-heading">Nombre completo: {{dataStudent.name | makeFullName: dataStudent.lastName}}</h2>
+    <span class="property">
+        Fecha de nacimiento:
+        <span>
+            {{dataStudent.birthday}}.
+        </span>
+    </span>
+    <br>
+    <span class="property">
+        Dirección de residencia:
+        <span>
+            {{dataStudent.address}}.
+        </span>
+    </span>
+    <br>
+    <span class="property">
+        Género:
+        <span *ngIf="dataStudent.gender === 'M'">
+            Masculino.
+        </span>
+        <span *ngIf="dataStudent.gender === 'F'">
+            Femenino.
+        </span>
+    </span>
+    <br>
+    <span class="property">
+        Correo electrónico:
+        <span>
+            {{dataStudent.email}}.
+        </span>
+    </span>
+    <br>
+    <span class="property">
+        Número de contácto:
+        <span>
+            {{dataStudent.phoneNumber}}.
+        </span>
+    </span>
+    <br>
+    <span class="property">
+        Estado de inscripción:
+        <span *ngIf="dataStudent.isActive === 'true'">
+            Usuario activo.
+        </span>
+        <span *ngIf="dataStudent.isActive === 'false'">
+            Usuario inactivo.
+        </span>
+    </span>
+    <br>    
+    <hr>
+    <h2 class="alert-heading">Información de cursos inscritos:</h2>
+    <div *ngFor="let course of dataStudent.courses">
+        <span class="property">
+            Clase inscrita:
+            <span>
+                {{course.className}}.
+            </span>
+        </span>
+        <br>
+        <span class="property">
+            Número de horas de esta clase:
+            <span>
+                {{course.hours}} hrs.
+            </span>
+        </span>
+        <br>
+        <span class="property">
+            Número de clases:
+            <span>
+                {{course.numberOfClasses}}.
+            </span>
+        </span>
+        <br>
+        <span class="property">
+            Profesor asignado::
+            <span>
+                {{course.teacherName}}.
+            </span>
+        </span>
+        <br>
+        <hr>
+    </div>
+  </div>

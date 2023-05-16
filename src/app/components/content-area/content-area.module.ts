@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ContentAreaComponent } from './content-area.component';
 import { RouterModule } from '@angular/router';
-import { AsideNavbarComponent } from './aside-navbar.component';
 
 @NgModule({
   declarations: [
-    AsideNavbarComponent,
+    ContentAreaComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
-    AsideNavbarComponent,
+    ContentAreaComponent,
   ]
 })
-export class AsideNavbarModule { }
+export class ContentAreaModule { }

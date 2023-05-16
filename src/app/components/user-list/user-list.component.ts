@@ -1,32 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StudentService } from 'src/app/services/student.service';
-import { SharedService } from 'src/app/services/shared.service';
+import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
-import { Student } from 'src/app/interfaces/interfaces';
-
+import { User } from 'src/app/interfaces/interfaces';
 import swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
-  selector: 'app-student-list',
-  templateUrl: './student-list.component.html',
-  styleUrls: ['./student-list.component.css'],
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
 })
-export class StudentListComponent implements OnInit, OnDestroy {
-
-  public rolePath: string;
-  public role: string | null;
+export class UserListComponent implements OnInit, OnDestroy {
 
   public displayedColumns: string[] = [
     'id',
     'fullName',
-    'birthday',
-    'address',
-    'courses',
-    'gender',
     'email',
+    'profile',
+    'address',
     'phone',
-    'status',
     'functions',
   ];
 
@@ -34,9 +26,8 @@ export class StudentListComponent implements OnInit, OnDestroy {
   public subscription: Subscription;
 
   constructor(
-    private studentService: StudentService,
-    private sharedService: SharedService,
-    private router: Router
+    private userService: UserService,
+    private sharedService: SharedService
   ) {}
 
   ngOnDestroy(): void {
@@ -44,7 +35,7 @@ export class StudentListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.studentService.getStudents().subscribe(
+    this.subscription = this.userService.getUsers().subscribe(
       (data) => {
         this.dataSource = data;
       },
@@ -52,16 +43,13 @@ export class StudentListComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     );
-
-    this.role = localStorage.getItem('userProfile');
-    this.rolePath = this.role === 'administrator' ? '/admin-page' : '/user-page';
   }
 
   delete(idEliminate: string) {
-    this.studentService.deleteData(idEliminate).subscribe(
+    this.userService.deleteUsers(idEliminate).subscribe(
       (response) => {
         this.dataSource = this.dataSource.filter(
-          (student: Student) => student.id !== idEliminate
+          (user: User) => user.id !== idEliminate
         );
         swal.fire({
           position: 'top-end',
@@ -86,18 +74,12 @@ export class StudentListComponent implements OnInit, OnDestroy {
   sendDataUser(element: any) {
     this.sharedService.inscriptionMode(true);
     const index = this.dataSource.findIndex(
-      (student: Student) => student.id === element
+      (user: User) => user.id === element
     );
     this.sharedService.setMessage(this.dataSource[index]);
   }
 
   changeFormStatus() {
     this.sharedService.inscriptionMode(false);
-  }
-
-  goToStudentDetail(id:string, name: string, lastName: string) {
-    const formattedName = name.replace(/\s+/g, '+');
-    const formattedLastName = lastName.replace(/\s+/g, '+');
-    this.router.navigate([this.rolePath, id + '+' + formattedName + '+' + formattedLastName]);
   }
 }

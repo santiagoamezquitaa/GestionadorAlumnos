@@ -3,7 +3,7 @@ export interface Student {
     lastName: string,
     birthday: string,
     address: string
-    educationLevel: string,
+    courses: string[],
     gender: string,
     email: string,
     phoneNumber: number,
@@ -20,4 +20,11 @@ export interface User {
 }
 
 export interface Users extends Array<User>{}
+
+export interface CourseData {
+    className: string,
+    hours: number,
+    numberOfClasses: number,
+    teacherName: string
+}
 

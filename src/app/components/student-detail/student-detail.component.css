@@ -1,0 +1,8 @@
+.property {
+    font-weight: bold;
+}
+
+.property span {
+    font-weight: normal;
+    color: black;
+}

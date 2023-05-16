@@ -4,23 +4,38 @@
             <div class="bg-dark p-2">
                 <ul class="nav nav-pills flex-column mt-5">
                     <li class="nav-item mb-3 py-2 py-sm-0">
-                        <a routerLink="/admin-page/home" class="nav-link text-white">
+                        <a [routerLink]="rolePath + '/home'" class="nav-link text-white">
                             <i class="fs-4 fa fa-home"></i><span class="fs-6 ms-3 d-none d-sm-inline">Home</span>
                         </a>
                     </li>
                     <li class="nav-item mb-3 py-2 py-sm-0">
-                        <a routerLink="/admin-page/studentList" class="nav-link text-white">
+                        <a [routerLink]="rolePath + '/studentList'" class="nav-link text-white">
                             <i class="fs-4 fa fa-users"></i><span
                                 class="fs-6 ms-3 d-none d-sm-inline">Estudiantes</span>
                         </a>
                     </li>
                     <li class="nav-item mb-3 py-2 py-sm-0">
-                        <a routerLink="/admin-page/inscription" class="nav-link text-white" (click)="changeFormStatus()">
+                        <a [routerLink]="rolePath + '/inscription'" class="nav-link text-white" (click)="changeFormStatus()">
                             <i class="fs-4 fa fa-user-plus"></i><span
                                 class="fs-6 ms-3 d-none d-sm-inline">Inscripción</span>
                         </a>
                     </li>
+                    <li class="nav-item mb-3 py-2 py-sm-0" *ngIf="role == 'administrator'">
+                        <a routerLink="/admin-page/userList" class="nav-link text-white" (click)="changeFormStatus()">
+                            <i class="fs-4 fa fa-user-secret"></i><span
+                                class="fs-6 ms-3 d-none d-sm-inline">Usuarios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-3 py-2 py-sm-0" *ngIf="role == 'administrator'">
+                        <a routerLink="/admin-page/usersInscription" class="nav-link text-white" (click)="changeFormStatus()">
+                            <i class="fs-4 fa fa-plus"></i><span
+                                class="fs-6 ms-3 d-none d-sm-inline">Agregar usuarios</span>
+                        </a>
+                    </li>
                 </ul>
+                <form class="d-flex mr-5" role="search">
+                    <button class="btn btn-danger me-5 mt-5" (click)="exit()">Cerrar sesión</button>
+                </form>
             </div>
 
         </div>

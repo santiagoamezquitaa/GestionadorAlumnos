@@ -2,7 +2,7 @@
   <h1 class="text-center" appTitlesSize>
     FORMULARIO DE REGISTRO PARA ESTUDIANTES
   </h1>
-  <form class="row g-3 mt-5" [formGroup]="formStudents" (submit)="inscriptioMode ? edit() : inscribe()">
+  <form class="row g-3 mt-5" [formGroup]="formStudents" (submit)="inscriptioMode ? edit() : inscribe()" id="my-form">
 
     <div class="col-md-4" *ngIf="inscriptioMode">
       <label class="form-label">Número de identificación:</label>
@@ -40,17 +40,18 @@
         Por favor, ingrese una dirección válida.</span>
     </div>
     <div class="col-md-2">
-      <label class="form-label">Grado educativo:</label>
-      <select class="form-control" formControlName="educationLevel"
-        [ngClass]="formStudents.get('educationLevel')?.invalid && formStudents.get('educationLevel')?.dirty ? 'error': 'success'">
-        <option></option>
-        <option>Preescolar</option>
-        <option>Primaria</option>
-        <option>Secundaria</option>
-      </select>
-      <span *ngIf="formStudents.get('educationLevel')?.invalid && formStudents.get('educationLevel')?.dirty">
-        Por favor, seleccione un nivel educativo válido.</span>
-    </div>
+      <label class="form-label">Cursos:</label>
+      <mat-select formControlName="courses" multiple class="select"
+      [ngClass]="formStudents.get('courses')?.invalid && formStudents.get('courses')?.dirty ? 'error': 'success'">
+        <mat-option [value]="devWeb">Desarrollo web</mat-option>
+        <mat-option [value]="dataBase">Bases de datos</mat-option>
+        <mat-option [value]="network">Redes</mat-option>
+        <mat-option [value]="infraestructure">Infraestructura</mat-option>
+        <mat-option [value]="devSoftware">Desarrollo de software</mat-option>
+      </mat-select>
+      <span *ngIf="formStudents.get('courses')?.invalid && formStudents.get('courses')?.dirty">
+        Por favor, seleccione al menos un curso.</span>
+  </div>
     <div class="col-md-2">
       <label class="form-label">Género:</label>
       <select class="form-control" formControlName="gender"
@@ -60,7 +61,7 @@
         <option value="F">Femenino</option>
       </select>
       <span *ngIf="formStudents.get('gender')?.invalid && formStudents.get('gender')?.dirty">
-        Por favor, seleccione un nivel educativo válido.</span>
+        Por favor, seleccione un género.</span>
     </div>
     <div class="col-md-4">
       <label class="form-label">Correo electrónico:</label>

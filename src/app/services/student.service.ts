@@ -10,8 +10,12 @@ import { studentsApi } from '../constant/constants';
 export class StudentService {
   constructor(private httpClient: HttpClient) {}
 
-  getUsers(): Observable<Object> {
+  getStudents(): Observable<Object> {
     return this.httpClient.get<Object>(studentsApi);
+  }
+
+  getSpecificStudent(id: string): Observable<Object> {
+    return this.httpClient.get<Object>(studentsApi + `/${id}`);
   }
 
   postData(data: object): Observable<Object> {

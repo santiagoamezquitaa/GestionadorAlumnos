@@ -1,24 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AdminPageComponent } from './admin-page.component';
-import { AdminPageRoutingModule } from './admin-page-routing.module';
+import { UserPageRoutingModule } from './user-page-routing.module';
+import { UserPageComponent } from './user-page.component';
 import { ToolbarModule } from '../toolbar/toolbar.module';
-import { AsideNavbarModule } from '../aside-navbar/aside-navbar.module';
 import { ContentAreaModule } from '../content-area/content-area.module';
+import { AsideNavbarModule } from '../aside-navbar/aside-navbar.module';
+
 
 @NgModule({
   declarations: [
-    AdminPageComponent,
+    UserPageComponent,
   ],
   imports: [
     CommonModule,
-    AdminPageRoutingModule,
+    UserPageRoutingModule,
     ToolbarModule,
     AsideNavbarModule,
     ContentAreaModule,
-  ],
-  exports: [
   ]
 })
-export class AdminPageModule { }
+export class UserPageModule { }

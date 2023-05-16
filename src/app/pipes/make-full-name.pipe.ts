@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class MakeFullNamePipe implements PipeTransform {
 
-  transform(value: string, args: string): unknown {
+  transform(value: string | null, args: string | null): string {
     return `${value} ${args}`;
   }
 

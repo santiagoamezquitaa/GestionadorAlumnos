@@ -4,6 +4,7 @@ import { AbmStudentsComponent } from './abm-students.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes = [
   { path: '', component: AbmStudentsComponent }
@@ -19,6 +20,7 @@ const routes = [
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild(routes),
+    MatSelectModule,
   ],
   exports: [
   ]

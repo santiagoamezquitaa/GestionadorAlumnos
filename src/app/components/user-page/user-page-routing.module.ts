@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminPageComponent } from './admin-page.component';
-import { AdminAuthGuard } from 'src/app/guards/admin-auth.guard';
+import { UserPageComponent } from './user-page.component';
+import { UserAuthGuard } from 'src/app/guards/user-auth.guard';
 
 const routes: Routes = [
   { 
     path: '', 
-    canActivate: [AdminAuthGuard],
-    component: AdminPageComponent,
+    canActivate: [UserAuthGuard],
+    component: UserPageComponent,
     children: [
       { 
         path: 'home',
@@ -25,16 +25,6 @@ const routes: Routes = [
           import('../../components/abm-students/abm-students.module').then((m) => m.AbmStudentsModule),
       },
       { 
-        path: 'userList',
-        loadChildren: () =>
-          import('../../components/user-list/user-list.module').then((m) => m.UserListModule),
-      },
-      { 
-        path: 'usersInscription',
-        loadChildren: () =>
-          import('../../components/abm-users/abm-users.module').then((m) => m.AbmUsersModule),
-      },
-      { 
         path: ':username',
         loadChildren: () =>
           import('../../components/student-detail/student-detail.module').then((m) => m.StudentDetailModule),
@@ -47,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminPageRoutingModule { }
+export class UserPageRoutingModule { }

@@ -1,7 +1,7 @@
 <h1 class="text-center mb-5 mt-3" appTitlesSize>LISTA DE ESTUDIANTES</h1>
 
 <div class="right mb-3">
-    <button mat-fab color="primary" aria-label="Example icon button with a bookmark icon" routerLink="/inscription"
+    <button mat-fab color="primary" aria-label="Example icon button with a bookmark icon" routerLink="/admin-page/inscription"
         (click)="changeFormStatus()">
         <mat-icon fontIcon="person_add"></mat-icon>
     </button>
@@ -29,9 +29,13 @@
         <td mat-cell *matCellDef="let element"> {{element.address}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="educationLevel">
+    <ng-container matColumnDef="courses">
         <th mat-header-cell *matHeaderCellDef> Cursos </th>
-        <td mat-cell *matCellDef="let element"> {{element.educationLevel}} </td>
+        <td mat-cell *matCellDef="let element">
+            <ng-container *ngFor="let course of element.courses">
+                {{course.className}},
+            </ng-container>
+        </td>
     </ng-container>
 
     <ng-container matColumnDef="gender">
@@ -59,9 +63,12 @@
     <ng-container matColumnDef="functions">
         <th mat-header-cell *matHeaderCellDef> Funciones </th>
         <td mat-cell *matCellDef="let element" class="text-center">
-            <button mat-icon-button color="basic" (click)="sendDataUser(element.id)" routerLink="/inscription">
+            <button mat-icon-button color="basic" (click)="sendDataUser(element.id)" routerLink="/admin-page/inscription">
                 <mat-icon fontIcon="edit"></mat-icon>
             </button>
+            <button mat-icon-button color="basic" (click)="goToStudentDetail(element.id, element.name, element.lastName)">
+                <mat-icon fontIcon="visibility"></mat-icon>
+            </button>            
             <button mat-icon-button color="warn" (click)="delete(element.id)">
                 <mat-icon fontIcon="delete_forever"></mat-icon>
             </button>
