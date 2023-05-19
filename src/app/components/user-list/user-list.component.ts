@@ -4,6 +4,9 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/interfaces/interfaces';
 import swal from 'sweetalert2';
 import { SharedService } from 'src/app/services/shared.service';
+import { Store } from '@ngrx/store';
+import { loadUsers } from './store/users.actions';
+import { selectUsersState } from './store/users.selectors';
 
 @Component({
   selector: 'app-user-list',
@@ -27,7 +30,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private store: Store,
   ) {}
 
   ngOnDestroy(): void {
@@ -35,14 +39,16 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.userService.getUsers().subscribe(
-      (data) => {
-        this.dataSource = data;
+    this.store.dispatch(loadUsers());
+    this.subscription = this.store.select(selectUsersState).subscribe(
+      (state) => {
+        this.dataSource = state.data;
       },
       (error) => {
-        console.log(error);
+        console.error(error);   
       }
     );
+
   }
 
   delete(idEliminate: string) {

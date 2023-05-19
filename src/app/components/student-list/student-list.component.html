@@ -1,7 +1,7 @@
 <h1 class="text-center mb-5 mt-3" appTitlesSize>LISTA DE ESTUDIANTES</h1>
 
 <div class="right mb-3">
-    <button mat-fab color="primary" aria-label="Example icon button with a bookmark icon" routerLink="/admin-page/inscription"
+    <button mat-fab color="primary" aria-label="Example icon button with a bookmark icon" [routerLink]="rolePath + '/inscription'"
         (click)="changeFormStatus()">
         <mat-icon fontIcon="person_add"></mat-icon>
     </button>
@@ -63,7 +63,7 @@
     <ng-container matColumnDef="functions">
         <th mat-header-cell *matHeaderCellDef> Funciones </th>
         <td mat-cell *matCellDef="let element" class="text-center">
-            <button mat-icon-button color="basic" (click)="sendDataUser(element.id)" routerLink="/admin-page/inscription">
+            <button mat-icon-button color="basic" (click)="sendDataUser(element.id)" [routerLink]="rolePath + '/inscription'">
                 <mat-icon fontIcon="edit"></mat-icon>
             </button>
             <button mat-icon-button color="basic" (click)="goToStudentDetail(element.id, element.name, element.lastName)">

@@ -4,6 +4,11 @@ import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { UserAuthGuard } from './guards/user-auth.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
   { 
     path: 'login',
     loadChildren: () =>
@@ -21,15 +26,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./components/user-page/user-page.module').then((m) => m.UserPageModule),
   },
+
   {
-    path: '',
-    loadChildren: () =>
-    import('./components/login/login.module').then((m) => m.LoginModule),
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
   }
-  // {
-  //   path: '**',
-  //   canActivate: [ProfileGuard]
-  // }
 ];
 
 @NgModule({

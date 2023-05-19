@@ -49,7 +49,7 @@ export class StudentListComponent implements OnInit, OnDestroy {
         this.dataSource = data;
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       }
     );
 

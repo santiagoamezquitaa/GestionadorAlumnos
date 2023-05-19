@@ -16,6 +16,11 @@ export interface Students extends Array<Student>{}
 export interface User {
     email: string,
     password: string,
+    name: string,
+    lastName: string,
+    address: string,
+    numberPhone: number,
+    profile: string,
     id: string,
 }
 
